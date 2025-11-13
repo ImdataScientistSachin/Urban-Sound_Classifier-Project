@@ -1,5 +1,36 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+
+# Python environment directories
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+logs/
+log/
+
+# Data and extracted features
+data/
+extracted_features/
+
+# Model artifacts (large binary files)
+models/
+tflite_models/
+
+# Uploaded files and temporary storage
+uploads/
+tmp/
+# Byte-compiled / optimized / DLL files
+__pycache__/
 *.py[cod]
 *$py.class
 
