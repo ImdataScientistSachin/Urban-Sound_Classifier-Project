@@ -251,28 +251,3 @@ Developed by **Sachin Paunikar**
 
 © 2025 Sachin Paunikar. All Rights Reserved.
 
-## 📤 Publishing this Project to GitHub
-
-This repository is prepared for publication on GitHub. It includes a project analysis (`ANALYSIS.md`), a permissive MIT `LICENSE`, a recommended `.gitignore`, and a lightweight GitHub Actions workflow for basic lint checks.
-
-To publish from your local machine (PowerShell), run:
-
-```powershell
-# initialize git repository (if not already initialized)
-git init
-git add .
-git commit -m "Initial: add project files, analysis, and CI"
-
-# create a GitHub repo (either via the website or gh CLI) and then add the remote
-# Example using the GitHub CLI (install from https://github.com/cli/cli):
-gh repo create yourusername/Urban-Sound_Classifier-Project --public --source=. --remote=origin --push
-
-# Or manually add remote and push:
-git remote add origin https://github.com/<yourusername>/Urban-Sound_Classifier-Project.git
-git branch -M main
-git push -u origin main
-```
-
-Replace `<yourusername>` with your GitHub username or use the `gh` CLI to create the repo interactively.
-
-If you want me to create the repository remotely and push changes, provide a GitHub Personal Access Token with repo permissions or run the `gh` commands above locally and tell me when to push.
