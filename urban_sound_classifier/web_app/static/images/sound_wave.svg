@@ -1,0 +1,180 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a6fa5" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#47b8e0" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background rectangle -->
+  <rect width="800" height="600" fill="url(#bg-gradient)" rx="20" ry="20"/>
+  
+  <!-- Sound wave lines -->
+  <g stroke-width="3" stroke-linecap="round">
+    <!-- First wave (blue) -->
+    <path d="M 50 300 Q 100 200, 150 300 Q 200 400, 250 300 Q 300 200, 350 300 Q 400 400, 450 300 Q 500 200, 550 300 Q 600 400, 650 300 Q 700 200, 750 300" 
+          fill="none" stroke="#4a6fa5" opacity="0.7">
+      <animate attributeName="d" 
+               values="M 50 300 Q 100 200, 150 300 Q 200 400, 250 300 Q 300 200, 350 300 Q 400 400, 450 300 Q 500 200, 550 300 Q 600 400, 650 300 Q 700 200, 750 300;
+                       M 50 300 Q 100 250, 150 300 Q 200 350, 250 300 Q 300 250, 350 300 Q 400 350, 450 300 Q 500 250, 550 300 Q 600 350, 650 300 Q 700 250, 750 300;
+                       M 50 300 Q 100 200, 150 300 Q 200 400, 250 300 Q 300 200, 350 300 Q 400 400, 450 300 Q 500 200, 550 300 Q 600 400, 650 300 Q 700 200, 750 300" 
+               dur="5s" 
+               repeatCount="indefinite" />
+    </path>
+    
+    <!-- Second wave (lighter blue) -->
+    <path d="M 50 300 Q 100 250, 150 300 Q 200 350, 250 300 Q 300 250, 350 300 Q 400 350, 450 300 Q 500 250, 550 300 Q 600 350, 650 300 Q 700 250, 750 300" 
+          fill="none" stroke="#47b8e0" opacity="0.5">
+      <animate attributeName="d" 
+               values="M 50 300 Q 100 250, 150 300 Q 200 350, 250 300 Q 300 250, 350 300 Q 400 350, 450 300 Q 500 250, 550 300 Q 600 350, 650 300 Q 700 250, 750 300;
+                       M 50 300 Q 100 150, 150 300 Q 200 450, 250 300 Q 300 150, 350 300 Q 400 450, 450 300 Q 500 150, 550 300 Q 600 450, 650 300 Q 700 150, 750 300;
+                       M 50 300 Q 100 250, 150 300 Q 200 350, 250 300 Q 300 250, 350 300 Q 400 350, 450 300 Q 500 250, 550 300 Q 600 350, 650 300 Q 700 250, 750 300" 
+               dur="4s" 
+               repeatCount="indefinite" />
+    </path>
+    
+    <!-- Third wave (orange accent) -->
+    <path d="M 50 300 Q 100 270, 150 300 Q 200 330, 250 300 Q 300 270, 350 300 Q 400 330, 450 300 Q 500 270, 550 300 Q 600 330, 650 300 Q 700 270, 750 300" 
+          fill="none" stroke="#ff7e5f" opacity="0.6">
+      <animate attributeName="d" 
+               values="M 50 300 Q 100 270, 150 300 Q 200 330, 250 300 Q 300 270, 350 300 Q 400 330, 450 300 Q 500 270, 550 300 Q 600 330, 650 300 Q 700 270, 750 300;
+                       M 50 300 Q 100 230, 150 300 Q 200 370, 250 300 Q 300 230, 350 300 Q 400 370, 450 300 Q 500 230, 550 300 Q 600 370, 650 300 Q 700 230, 750 300;
+                       M 50 300 Q 100 270, 150 300 Q 200 330, 250 300 Q 300 270, 350 300 Q 400 330, 450 300 Q 500 270, 550 300 Q 600 330, 650 300 Q 700 270, 750 300" 
+               dur="3s" 
+               repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Frequency bars -->
+  <g>
+    <!-- Bar 1 -->
+    <rect x="100" y="400" width="20" height="50" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="50;120;50" dur="1.5s" repeatCount="indefinite" />
+      <animate attributeName="y" values="400;330;400" dur="1.5s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 2 -->
+    <rect x="140" y="380" width="20" height="70" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="70;40;70" dur="2s" repeatCount="indefinite" />
+      <animate attributeName="y" values="380;410;380" dur="2s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 3 -->
+    <rect x="180" y="350" width="20" height="100" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="100;150;100" dur="1.7s" repeatCount="indefinite" />
+      <animate attributeName="y" values="350;300;350" dur="1.7s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 4 -->
+    <rect x="220" y="370" width="20" height="80" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="80;30;80" dur="1.3s" repeatCount="indefinite" />
+      <animate attributeName="y" values="370;420;370" dur="1.3s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 5 -->
+    <rect x="260" y="330" width="20" height="120" rx="5" ry="5" fill="#ff7e5f" opacity="0.7">
+      <animate attributeName="height" values="120;60;120" dur="1.8s" repeatCount="indefinite" />
+      <animate attributeName="y" values="330;390;330" dur="1.8s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 6 -->
+    <rect x="300" y="390" width="20" height="60" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="60;130;60" dur="1.6s" repeatCount="indefinite" />
+      <animate attributeName="y" values="390;320;390" dur="1.6s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 7 -->
+    <rect x="340" y="360" width="20" height="90" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="90;40;90" dur="1.9s" repeatCount="indefinite" />
+      <animate attributeName="y" values="360;410;360" dur="1.9s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 8 -->
+    <rect x="380" y="320" width="20" height="130" rx="5" ry="5" fill="#ff7e5f" opacity="0.7">
+      <animate attributeName="height" values="130;80;130" dur="1.4s" repeatCount="indefinite" />
+      <animate attributeName="y" values="320;370;320" dur="1.4s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 9 -->
+    <rect x="420" y="370" width="20" height="80" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="80;140;80" dur="2.1s" repeatCount="indefinite" />
+      <animate attributeName="y" values="370;310;370" dur="2.1s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 10 -->
+    <rect x="460" y="340" width="20" height="110" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="110;50;110" dur="1.7s" repeatCount="indefinite" />
+      <animate attributeName="y" values="340;400;340" dur="1.7s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 11 -->
+    <rect x="500" y="380" width="20" height="70" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="70;120;70" dur="1.5s" repeatCount="indefinite" />
+      <animate attributeName="y" values="380;330;380" dur="1.5s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 12 -->
+    <rect x="540" y="310" width="20" height="140" rx="5" ry="5" fill="#ff7e5f" opacity="0.7">
+      <animate attributeName="height" values="140;70;140" dur="1.8s" repeatCount="indefinite" />
+      <animate attributeName="y" values="310;380;310" dur="1.8s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 13 -->
+    <rect x="580" y="350" width="20" height="100" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="100;60;100" dur="1.6s" repeatCount="indefinite" />
+      <animate attributeName="y" values="350;390;350" dur="1.6s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 14 -->
+    <rect x="620" y="390" width="20" height="60" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="60;110;60" dur="1.9s" repeatCount="indefinite" />
+      <animate attributeName="y" values="390;340;390" dur="1.9s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Bar 15 -->
+    <rect x="660" y="360" width="20" height="90" rx="5" ry="5" fill="#4a6fa5" opacity="0.7">
+      <animate attributeName="height" values="90;40;90" dur="1.7s" repeatCount="indefinite" />
+      <animate attributeName="y" values="360;410;360" dur="1.7s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Circular elements -->
+  <g>
+    <!-- Circle 1 -->
+    <circle cx="150" cy="200" r="15" fill="#4a6fa5" opacity="0.2">
+      <animate attributeName="r" values="15;25;15" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Circle 2 -->
+    <circle cx="250" cy="150" r="20" fill="#47b8e0" opacity="0.3">
+      <animate attributeName="r" values="20;10;20" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Circle 3 -->
+    <circle cx="350" cy="180" r="18" fill="#ff7e5f" opacity="0.2">
+      <animate attributeName="r" values="18;28;18" dur="3.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Circle 4 -->
+    <circle cx="450" cy="220" r="12" fill="#4a6fa5" opacity="0.3">
+      <animate attributeName="r" values="12;22;12" dur="2.8s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="2.8s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Circle 5 -->
+    <circle cx="550" cy="170" r="25" fill="#47b8e0" opacity="0.2">
+      <animate attributeName="r" values="25;15;25" dur="3.2s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="3.2s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Circle 6 -->
+    <circle cx="650" cy="190" r="16" fill="#ff7e5f" opacity="0.3">
+      <animate attributeName="r" values="16;26;16" dur="3.7s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3.7s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>

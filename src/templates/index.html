@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Sound Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/audio-player.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="noise-bg"></div>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-waveform-path"></i>
+                </div>
+            </div>
+            <h1>Urban<span>Sound</span>AI</h1>
+            <p class="tagline">Advanced neural network for urban sound classification</p>
+            <p class="developer">Developed by Sachin Paunikar</p>
+            <div class="supported-formats">
+                <div class="format-badge">WAV</div>
+                <div class="format-badge">MP3</div>
+                <div class="format-badge">OGG</div>
+                <div class="format-badge">FLAC</div>
+                <div class="format-badge">M4A</div>
+            </div>
+        </header>
+        
+        <main>
+            <section class="upload-section">
+                <div class="card upload-container" id="upload-container">
+                    <div class="card-header">
+                        <h2><i class="fas fa-cloud-upload-alt"></i> Upload Audio</h2>
+                    </div>
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon-container">
+                            <img src="{{ url_for('static', filename='images/upload-icon.svg') }}" alt="Upload" class="upload-icon">
+                            <div class="pulse-ring"></div>
+                        </div>
+                        <h3>Drag and drop your audio file here</h3>
+                        <p>The classifier works best with clear recordings of single sounds</p>
+                        <div class="upload-divider">
+                            <span>or</span>
+                        </div>
+                        <div class="upload-buttons">
+                            <label for="file-input" class="upload-button"><i class="fas fa-headphones"></i> Select Audio File</label>
+                            <button id="mic-button" class="mic-button"><i class="fas fa-microphone"></i> Use Microphone</button>
+                        </div>
+                        <div class="user-signature">
+                            <input type="text" id="user-signature" placeholder="Enter your name (optional)" class="signature-input">
+                        </div>
+                        <input type="file" id="file-input" accept=".wav,.mp3,.ogg,.flac,.m4a" hidden>
+                    </div>
+                    <div class="file-info" id="file-info" style="display: none;">
+                        <div class="file-details">
+                            <div class="file-icon"><i class="fas fa-file-audio"></i></div>
+                            <div class="file-text">
+                                <p class="file-name" id="file-name"></p>
+                                <p class="file-size" id="file-size"></p>
+                            </div>
+                        </div>
+                        <button class="remove-file" id="remove-file"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="audio-player-container" id="audio-player-container" style="display: none;">
+                        <audio id="audio-player" controls>
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+                <button class="classify-button" id="classify-button" disabled><i class="fas fa-brain"></i> Analyze Sound</button>
+            </section>
+            
+            <section class="results-section" id="results-section" style="display: none;">
+                <div class="card result-container">
+                    <div class="card-header results-header">
+                        <h2><i class="fas fa-check-circle"></i> Analysis Results</h2>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon-container">
+                            <i class="result-icon fas fa-volume-up"></i>
+                        </div>
+                        <div class="result-main">
+                            <h3>Detected Sound</h3>
+                            <p class="result-class" id="result-class"></p>
+                            <p class="result-signature">Analyzed by: <span id="result-signature">Anonymous User</span></p>
+                            <button class="play-audio-btn" id="play-result-audio"><i class="fas fa-play"></i> Play Sound</button>
+                        </div>
+                        <div class="confidence-container">
+                            <div class="confidence-header">
+                                <h3>AI Confidence</h3>
+                                <p class="confidence-value" id="confidence-value"></p>
+                            </div>
+                            <div class="confidence-bar-container">
+                                <div class="confidence-bar" id="confidence-bar"></div>
+                            </div>
+                            <div class="confidence-scale">
+                                <span>0%</span>
+                                <span>50%</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Audio Visualization -->
+                        <div class="waveform-section" id="audio-visualization-container">
+                            <h3 class="waveform-header">Audio Waveform</h3>
+                            <div class="waveform-container">
+                                <canvas id="waveform-canvas"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Model Insights -->
+                        <div class="all-confidences-section" id="model-insights-container">
+                            <h3 class="all-confidences-header">Model Insights</h3>
+                            <p class="insights-description">Confidence scores across all sound classes:</p>
+                            <div class="all-confidences-container" id="all-confidences-container">
+                                <!-- Will be populated dynamically with JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="new-classification" id="new-classification"><i class="fas fa-redo"></i> Analyze Another Sound</button>
+            </section>
+            
+            <section class="loading-section" id="loading-section" style="display: none;">
+                <div class="loader-container">
+                    <div class="loader"></div>
+                    <div class="loader-wave">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <p>Analyzing audio with AI<span class="dot-animation"></span></p>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About This Project</h4>
+                    <p>An advanced neural network trained on the UrbanSound8K dataset to classify urban environmental sounds with high accuracy.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Detectable Sound Classes</h4>
+                    <div class="sound-classes-grid">
+                        <div class="sound-class-item"><i class="fas fa-fan"></i> Air Conditioner</div>
+                        <div class="sound-class-item"><i class="fas fa-car"></i> Car Horn</div>
+                        <div class="sound-class-item"><i class="fas fa-child"></i> Children Playing</div>
+                        <div class="sound-class-item"><i class="fas fa-dog"></i> Dog Bark</div>
+                        <div class="sound-class-item"><i class="fas fa-tools"></i> Drilling</div>
+                        <div class="sound-class-item"><i class="fas fa-car-battery"></i> Engine Idling</div>
+                        <div class="sound-class-item"><i class="fas fa-bullseye"></i> Gun Shot</div>
+                        <div class="sound-class-item"><i class="fas fa-hammer"></i> Jackhammer</div>
+                        <div class="sound-class-item"><i class="fas fa-volume-high"></i> Siren</div>
+                        <div class="sound-class-item"><i class="fas fa-music"></i> Street Music</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p><i class="fab fa-tensorflow"></i> Powered by TensorFlow | <span class="copyright">© 2025 Sachin Paunikar. All Rights Reserved</span></p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Microphone Modal -->
+    <div id="microphone-modal" class="microphone-modal">
+        <div class="microphone-modal-content">
+            <div class="microphone-modal-header">
+                <h2><i class="fas fa-microphone"></i> Record Sound</h2>
+                <button id="cancel-recording" class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="microphone-modal-body">
+                <p>Record a sound to classify it in real-time.</p>
+                <div class="duration-slider-container">
+                    <label for="recording-duration">Recording Duration: <span id="duration-value">4</span> seconds</label>
+                    <input type="range" id="recording-duration" class="recording-duration-slider" min="2" max="10" value="4" step="1">
+                    <div class="duration-range">
+                        <span>2s</span>
+                        <span>10s</span>
+                    </div>
+                </div>
+                <canvas id="microphone-canvas" class="microphone-visualizer"></canvas>
+                <p id="recording-status" class="recording-status">Ready to record</p>
+                <button id="start-recording" class="start-recording-button"><i class="fas fa-circle"></i> Start Recording</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/microphone.js') }}"></script>
+</body>
+</html>

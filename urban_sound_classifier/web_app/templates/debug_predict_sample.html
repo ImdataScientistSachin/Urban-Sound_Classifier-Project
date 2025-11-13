@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Predict Sample</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .response {
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        .headers {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Debug Predict Sample Endpoint</h1>
+    
+    <div class="test-section">
+        <h2>Test with URL Path</h2>
+        <p>Tests the endpoint with a URL path format: <code>/audio_samples/dog_bark.wav</code></p>
+        <button id="testUrlPath">Test URL Path</button>
+        <div id="urlPathResponse" class="response">
+            <div>Path used: <span id="urlPathUsed"></span></div>
+            <div class="headers" id="urlPathHeaders"></div>
+            <pre id="urlPathResult"></pre>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test with Relative Path</h2>
+        <p>Tests the endpoint with a relative path format: <code>test_audio_samples/dog_bark.wav</code></p>
+        <button id="testRelativePath">Test Relative Path</button>
+        <div id="relativePathResponse" class="response">
+            <div>Path used: <span id="relativePathUsed"></span></div>
+            <div class="headers" id="relativePathHeaders"></div>
+            <pre id="relativePathResult"></pre>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test with Absolute Path</h2>
+        <p>Tests the endpoint with an absolute path format: <code>D:/Urban-Sound_Classifier-Project/test_audio_samples/dog_bark.wav</code></p>
+        <button id="testAbsolutePath">Test Absolute Path</button>
+        <div id="absolutePathResponse" class="response">
+            <div>Path used: <span id="absolutePathUsed"></span></div>
+            <div class="headers" id="absolutePathHeaders"></div>
+            <pre id="absolutePathResult"></pre>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Test with Custom Path</h2>
+        <p>Enter a custom path to test:</p>
+        <input type="text" id="customPath" style="width: 100%; padding: 8px; margin-bottom: 10px;" 
+               placeholder="Enter path (e.g., /audio_samples/dog_bark.wav)">
+        <button id="testCustomPath">Test Custom Path</button>
+        <div id="customPathResponse" class="response">
+            <div>Path used: <span id="customPathUsed"></span></div>
+            <div class="headers" id="customPathHeaders"></div>
+            <pre id="customPathResult"></pre>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to test the endpoint with a given path
+        function testEndpoint(path, resultElementId, pathUsedElementId, headersElementId) {
+            // Display the path being used
+            document.getElementById(pathUsedElementId).textContent = path;
+            
+            // Create form data
+            const formData = new FormData();
+            formData.append('sample_path', path);
+            
+            // Clear previous results
+            document.getElementById(resultElementId).textContent = 'Loading...';
+            document.getElementById(headersElementId).textContent = '';
+            
+            // Send request
+            fetch('/predict_sample', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                // Display response headers
+                const headers = Array.from(response.headers.entries())
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join('\n');
+                document.getElementById(headersElementId).textContent = 'Response Headers:\n' + headers;
+                
+                // Check content type
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json().then(data => {
+                        document.getElementById(resultElementId).textContent = JSON.stringify(data, null, 2);
+                        document.getElementById(resultElementId).className = 'success';
+                    });
+                } else {
+                    return response.text().then(text => {
+                        document.getElementById(resultElementId).textContent = 
+                            `Non-JSON Response (${response.status} ${response.statusText}):\n\n${text.substring(0, 500)}${text.length > 500 ? '...' : ''}`;
+                        document.getElementById(resultElementId).className = 'error';
+                    });
+                }
+            })
+            .catch(error => {
+                document.getElementById(resultElementId).textContent = 'Error: ' + error.message;
+                document.getElementById(resultElementId).className = 'error';
+            });
+        }
+
+        // Set up event listeners
+        document.getElementById('testUrlPath').addEventListener('click', () => {
+            testEndpoint('/audio_samples/dog_bark.wav', 'urlPathResult', 'urlPathUsed', 'urlPathHeaders');
+        });
+
+        document.getElementById('testRelativePath').addEventListener('click', () => {
+            testEndpoint('test_audio_samples/dog_bark.wav', 'relativePathResult', 'relativePathUsed', 'relativePathHeaders');
+        });
+
+        document.getElementById('testAbsolutePath').addEventListener('click', () => {
+            testEndpoint('D:/Urban-Sound_Classifier-Project/test_audio_samples/dog_bark.wav', 'absolutePathResult', 'absolutePathUsed', 'absolutePathHeaders');
+        });
+
+        document.getElementById('testCustomPath').addEventListener('click', () => {
+            const customPath = document.getElementById('customPath').value;
+            if (customPath) {
+                testEndpoint(customPath, 'customPathResult', 'customPathUsed', 'customPathHeaders');
+            } else {
+                alert('Please enter a path to test');
+            }
+        });
+    </script>
+</body>
+</html>

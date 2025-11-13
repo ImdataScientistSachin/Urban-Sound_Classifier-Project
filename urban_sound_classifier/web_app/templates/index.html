@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Sound Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fas fa-waveform"></i> Urban Sound Classifier</h1>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content animate__animated animate__fadeIn">
+                    <h2>Identify Urban Sounds with AI</h2>
+                    <p>Upload an audio file or record with your microphone to classify urban environmental sounds using our deep learning model.</p>
+                    <div class="hero-badges">
+                        <span class="badge"><i class="fas fa-file-audio"></i> Upload Audio</span>
+                        <span class="badge"><i class="fas fa-microphone"></i> Record Sound</span>
+                        <span class="badge"><i class="fas fa-play"></i> Playback</span>
+                        <span class="badge"><i class="fas fa-brain"></i> AI Classification</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="sound-wave">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="upload-section">
+            <div class="container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="upload"><i class="fas fa-file-audio"></i> Upload File</button>
+                    <button class="tab-btn" data-tab="record"><i class="fas fa-microphone"></i> Record Audio</button>
+                    <button class="tab-btn" data-tab="sample"><i class="fas fa-list"></i> Sample Sounds</button>
+                </div>
+                
+                <div class="tab-content" id="uploadTab">
+                    <div class="upload-container">
+                        <div class="upload-area" id="dropArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop your audio file here</p>
+                            <p class="small">or</p>
+                            <label for="fileInput" class="upload-btn">Browse Files</label>
+                            <input type="file" id="fileInput" accept=".wav,.mp3,.ogg,.flac" hidden>
+                            <p class="file-info" id="fileInfo"></p>
+                        </div>
+                        <div class="formats-info">
+                            <p>Supported formats: .wav, .mp3, .ogg, .flac</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content hidden" id="recordTab">
+                    <div class="record-container">
+                        <div class="record-visualizer">
+                            <canvas id="visualizer" width="300" height="100"></canvas>
+                        </div>
+                        <div class="record-controls">
+                            <button id="startRecordBtn" class="record-btn"><i class="fas fa-microphone"></i> Start Recording</button>
+                            <button id="stopRecordBtn" class="record-btn" disabled><i class="fas fa-stop"></i> Stop Recording</button>
+                            <div class="record-timer" id="recordTimer">00:00</div>
+                        </div>
+                        <div class="record-status" id="recordStatus">Click 'Start Recording' to begin</div>
+                    </div>
+                </div>
+                
+                <div class="tab-content hidden" id="sampleTab">
+                    <div class="sample-container">
+                        <div class="sample-list" id="sampleList">
+                            <p class="sample-info">Select a sample sound from the UrbanSound8K dataset:</p>
+                            <!-- Sample sounds will be loaded here -->
+                            <button id="sample-predict-btn" class="predict-btn" style="display: none;" disabled>Classify Sample Sound</button>
+                            <div class="sample-categories">
+                                <div class="sample-category">
+                                    <h4>Air Conditioner</h4>
+                                    <button class="sample-btn" data-category="air_conditioner">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Car Horn</h4>
+                                    <button class="sample-btn" data-category="car_horn">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Children Playing</h4>
+                                    <button class="sample-btn" data-category="children_playing">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Dog Bark</h4>
+                                    <button class="sample-btn" data-category="dog_bark">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Drilling</h4>
+                                    <button class="sample-btn" data-category="drilling">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Engine Idling</h4>
+                                    <button class="sample-btn" data-category="engine_idling">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Gun Shot</h4>
+                                    <button class="sample-btn" data-category="gun_shot">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Jackhammer</h4>
+                                    <button class="sample-btn" data-category="jackhammer">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Siren</h4>
+                                    <button class="sample-btn" data-category="siren">Load Samples</button>
+                                </div>
+                                <div class="sample-category">
+                                    <h4>Street Music</h4>
+                                    <button class="sample-btn" data-category="street_music">Load Samples</button>
+                                </div>
+                            </div>
+                            <div id="sampleFiles" class="sample-files"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="audio-player hidden" id="audioPlayer">
+                    <h3>Selected Audio</h3>
+                    <div class="player-container">
+                        <audio id="audioElement" controls></audio>
+                        <div class="audio-info" id="audioInfo"></div>
+                    </div>
+                </div>
+                
+                <button id="predictBtn" class="predict-btn" disabled>Classify Sound</button>
+            </div>
+        </section>
+
+        <section class="results-section hidden" id="resultsSection">
+            <div class="container">
+                <h2 class="animate__animated animate__fadeInDown">Classification Results</h2>
+                <div class="results-container">
+                    <div class="spectrogram-container animate__animated animate__fadeInLeft">
+                        <h3>Mel Spectrogram</h3>
+                        <div class="spectrogram-image">
+                            <img id="spectrogramImg" src="" alt="Mel Spectrogram">
+                        </div>
+                        <div class="spectrogram-info">
+                            <p>The Mel Spectrogram is a visual representation of the frequency content of the sound over time, using the Mel scale which approximates human auditory perception.</p>
+                        </div>
+                    </div>
+                    <div class="predictions-container animate__animated animate__fadeInRight">
+                        <h3>Predictions</h3>
+                        <div class="top-prediction" id="topPrediction">
+                            <!-- Top prediction will be displayed here -->
+                        </div>
+                        <div class="predictions-list" id="predictionsList">
+                            <!-- Predictions will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button id="playResultAudioBtn" class="action-btn"><i class="fas fa-play"></i> Play Audio</button>
+                    <button id="downloadResultBtn" class="action-btn"><i class="fas fa-download"></i> Download Results</button>
+                    <button id="newPredictionBtn" class="new-prediction-btn">Classify Another Sound</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                <div class="spinner-wave">
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                    <div class="wave-bar"></div>
+                </div>
+            </div>
+            <p id="loadingMessage">Processing audio...</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-waveform"></i> Urban Sound Classifier
+                </div>
+                <div class="footer-links">
+                    <a href="#">Home</a>
+                    <a href="/about">About</a>
+                    <a href="https://github.com/" target="_blank">GitHub</a>
+                </div>
+            </div>
+            <p class="copyright">&copy; 2023 Urban Sound Classifier. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
