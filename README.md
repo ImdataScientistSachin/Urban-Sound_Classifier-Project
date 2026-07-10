@@ -121,7 +121,7 @@ This project uses the [UrbanSound8K dataset](https://urbansounddataset.weebly.co
 The dataset should be placed in the following directory structure:
 
 ```
-D:\Urban-Sound_Classifier-Project\data\UrbanSound8K\
+D:\Urban-Sound-Classifier-Project\data\UrbanSound8K\
 ├── UrbanSound8K.csv
 ├── fold1\
 ├── fold2\
