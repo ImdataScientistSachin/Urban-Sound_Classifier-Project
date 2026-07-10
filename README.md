@@ -136,8 +136,8 @@ The code is configured to look for the dataset in this location. If you have the
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/Urban-Sound_Classifier-Project.git
-cd Urban-Sound_Classifier-Project
+git clone https://github.com/yourusername/Urban-Sound-Classifier-Project.git
+cd Urban-Sound-Classifier-Project
 ```
 
 2. Create and activate a virtual environment
